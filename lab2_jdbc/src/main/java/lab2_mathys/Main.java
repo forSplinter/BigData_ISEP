@@ -1,4 +1,11 @@
 package lab2_mathys;
+import lab2_mathys.DAO.DAO;
+import lab2_mathys.DAO.DAOFactory;
+import lab2_mathys.DAO.DeptDAO;
+import lab2_mathys.DAO.EmpDAO;
+import lab2_mathys.model.Dept;
+import lab2_mathys.model.Emp;
+
 import java.sql.*;
 
 
@@ -9,18 +16,31 @@ public class Main {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:postgresql://localhost:5432/postgres";
-        String user = "postgres";
+        String url = "jdbc:postgresql://localhost:5432/lab_bigdata";
+        String user = "forsplinter";
         String password = "postgres";
         Connection conn = null;
 
         try {
             conn = DriverManager.getConnection(url, user, password);
             System.out.println("Connected to PostgreSQL database");
-            displayDepartement(conn);
-            moveDepartement(conn, 10, 7369);
-            displayTable(conn, "emp");
 
+            DAOFactory daoFactory = new DAOFactory(conn);
+            DAO<Dept> deptDAO = daoFactory.getDeptDao();
+            Dept dept20 = deptDAO.findById(20);
+            DAO<Emp> empDao = daoFactory.getEmpDao();
+            Emp emp20 = empDao.findById(7369);
+
+            if (dept20 != null) {
+                System.out.println(dept20);
+            }else{
+                System.out.println("No Dept Found");
+            }
+            if (emp20 != null) {
+                System.out.println(emp20);
+            }else{
+                System.out.println("No Emp Found");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -33,6 +53,8 @@ public class Main {
             }
         }
     }
+
+    // JDBC method here
     public static void displayDepartement(Connection conn) throws SQLException {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT deptno, dname, loc FROM dept");
