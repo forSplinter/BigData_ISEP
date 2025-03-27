@@ -1,6 +1,7 @@
-package lab2_mathys.DAO;
+package com.isep.dao;
 
-import lab2_mathys.model.Dept;
+import com.isep.pool.BoneCPConnectionFactory;
+import com.isep.model.Dept;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.Connection;
@@ -14,49 +15,48 @@ public class DeptDAO implements DAO<Dept> {
 
     private final Connection conn;
 
+    public DeptDAO() throws SQLException {
+        this.conn = BoneCPConnectionFactory.getInstance().getConnection();
+    }
+
 
     @Override
     public Dept findById(int id) {
-        Dept dept = null;
-        String query = "SELECT deptno, dname, loc FROM dept WHERE deptno = ?";
-        try(PreparedStatement stmt = conn.prepareStatement(query)){
+        String sql = "SELECT * FROM dept WHERE deptno = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-
-            if(rs.next()) {
-                dept = new Dept(
+            if (rs.next()) {
+                return new Dept(
                         rs.getInt("deptno"),
                         rs.getString("dname"),
-                            rs.getString("loc"));
+                        rs.getString("loc")
+                );
             }
-
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return dept;
+        return null;
     }
 
     @Override
     public List<Dept> findAll() {
-
         return List.of();
     }
 
     @Override
-    public boolean create(Dept dept) {
-
+    public boolean create(Dept object) {
         return false;
     }
 
     @Override
-    public boolean update(Dept dept) {
-
+    public boolean update(Dept object) {
         return false;
     }
 
     @Override
-    public boolean delete(Dept dept) {
-
+    public boolean delete(Dept object) {
         return false;
     }
+
 }

@@ -1,0 +1,5 @@
+server.port: 9090
+spring.datasource.url: jdbc:postgresql://localhost/lab_bigdata
+spring.datasource.username: forsplinter
+spring.datasource.password: postgres
+spring.datasource.driver.class: org.postgresql.Driver
