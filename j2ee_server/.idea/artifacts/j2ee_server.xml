@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="j2ee_server">
+    <output-path>$PROJECT_DIR$/out/artifacts/j2ee_server</output-path>
+    <root id="root">
+      <element id="directory" name="lib">
+        <element id="archive" name="j2ee_server.jar">
+          <element id="module-output" name="j2ee_server" />
+        </element>
+        <element id="library" level="project" name="Maven: jakarta.persistence:jakarta.persistence-api:3.2.0" />
+        <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-servlet-api:11.0.2" />
+        <element id="library" level="project" name="Maven: org.eclipse.persistence:org.eclipse.persistence.asm:9.5.0" />
+        <element id="library" level="project" name="Maven: org.eclipse.persistence:org.eclipse.persistence.core:4.0.2" />
+        <element id="library" level="project" name="Maven: org.eclipse.persistence:org.eclipse.persistence.jpa.jpql:4.0.2" />
+        <element id="library" level="project" name="Maven: org.eclipse.persistence:org.eclipse.persistence.jpa:4.0.2" />
+      </element>
+    </root>
+  </artifact>
+</component>
